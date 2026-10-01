@@ -45,10 +45,10 @@ Redirect mode leaves the merchant page. Handle completion through the transactio
 
 ## Browser script
 
-Until the versioned Tsara CDN asset is published, serve `dist/index.global.js` from your own application or install the npm package. Do not use an unversioned or unofficial CDN URL.
+Use the version-pinned browser build published with the npm package. Pinning the version prevents an SDK update from changing production behavior without a deliberate merchant release.
 
 ```html
-<script src="/assets/tsara-checkout/index.global.js"></script>
+<script src="https://unpkg.com/@tsara/checkout-js@0.1.0/dist/index.global.js"></script>
 <script>
   TsaraCheckout.open({
     publicKey: "pk_test_xxxxx",
@@ -100,5 +100,5 @@ The SDK targets current evergreen versions of Chrome, Edge, Firefox, and Safari,
 
 ## Release status
 
-`0.1.x` is a release-candidate line. A versioned public CDN URL will be documented at stable release.
+`0.1.x` is the published release-candidate line. Install an exact version for production integrations and review the release notes before upgrading.
 
