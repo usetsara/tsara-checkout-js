@@ -89,6 +89,7 @@ npm version minor  # Backward-compatible feature: 0.1.1 -> 0.2.0
 npm version major  # Breaking change: 0.1.1 -> 1.0.0
 ```
 
+
 Never attempt to publish an npm version that already exists. npm package versions are immutable.
 
 ## Common failures
