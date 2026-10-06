@@ -1,6 +1,6 @@
 {
   "name": "@tsara/checkout-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Official browser SDK for Tsara hosted Checkout.",
   "license": "MIT",
   "type": "module",
