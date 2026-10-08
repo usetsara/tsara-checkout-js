@@ -1,0 +1,42 @@
+{
+  "contract_version": "1.0.0",
+  "api_version": "v1",
+  "base_path": "/v1",
+  "response_envelope": {
+    "required_fields": ["success", "status", "status_code", "message"],
+    "data_field": "data",
+    "failure_statuses": ["failed", "error"]
+  },
+  "operations": [
+    {"id": "transactions.list", "method": "GET", "path": "/v1/transactions", "route_anchor": "$router->controller('transactions'", "consumers": ["node", "php"]},
+    {"id": "transfers.create", "method": "POST", "path": "/v1/transfers", "route_anchor": "$router->controller('transfers'", "consumers": ["node", "php"]},
+    {"id": "transfers.list", "method": "GET", "path": "/v1/transfers", "route_anchor": "$router->controller('transfers'", "consumers": ["node", "php"]},
+    {"id": "transfers.banks", "method": "GET", "path": "/v1/transfers/banks", "route_anchor": "$router->get('transfers/banks'", "consumers": ["node", "php"]},
+    {"id": "payouts.create", "method": "POST", "path": "/v1/payouts", "route_anchor": "$router->controller('/', PayoutController::class)", "consumers": ["node", "php"]},
+    {"id": "payouts.list", "method": "GET", "path": "/v1/payouts", "route_anchor": "$router->controller('/', PayoutController::class)", "consumers": ["node", "php"]},
+    {"id": "payouts.name_enquiry", "method": "POST", "path": "/v1/payouts/name-enquiry", "route_anchor": "$router->post('/name-enquiry'", "consumers": ["node", "php"]},
+    {"id": "checkout.create", "method": "POST", "path": "/v1/checkout", "route_anchor": "$router->controller('checkout'", "consumers": ["node", "php", "checkout-js"]},
+    {"id": "checkout.account", "method": "GET", "path": "/v1/checkout/account", "route_anchor": "$router->controller('checkout'", "consumers": ["node", "php"]},
+    {"id": "checkout.crypto", "method": "POST", "path": "/v1/checkout/crypto", "route_anchor": "$router->controller('checkout'", "consumers": ["node", "php"]},
+    {"id": "checkout.status", "method": "GET", "path": "/v1/checkout/status", "route_anchor": "$router->controller('checkout'", "consumers": ["node", "php", "checkout-js"]},
+    {"id": "customers.create", "method": "POST", "path": "/v1/customers", "route_anchor": "$router->controller('/', CustomerController::class)", "consumers": ["node", "php"]},
+    {"id": "customers.list", "method": "GET", "path": "/v1/customers", "route_anchor": "$router->controller('/', CustomerController::class)", "consumers": ["node", "php"]},
+    {"id": "payment_links.create", "method": "POST", "path": "/v1/payment-links", "route_anchor": "$router->controller('payment-links'", "consumers": ["node", "php"]},
+    {"id": "payment_links.list", "method": "GET", "path": "/v1/payment-links", "route_anchor": "$router->controller('payment-links'", "consumers": ["node", "php"]},
+    {"id": "refunds.create", "method": "POST", "path": "/v1/refunds", "route_anchor": "$router->controller('refunds'", "consumers": ["node", "php"]},
+    {"id": "webhooks.config", "method": "GET", "path": "/v1/webhook/config", "route_anchor": "$router->get('/config'", "consumers": ["node", "php"]},
+    {"id": "webhooks.rotate_secret", "method": "POST", "path": "/v1/webhook/rotate-secret", "route_anchor": "$router->post('/rotate-secret'", "consumers": ["node", "php"]},
+    {"id": "webhooks.test", "method": "POST", "path": "/v1/webhook/test", "route_anchor": "$router->post('/test'", "consumers": ["node", "php"]}
+  ],
+  "webhooks": {
+    "signature_header": "X_TSARA_SIGNATURE",
+    "algorithm": "HMAC-SHA512",
+    "events": ["transaction.success", "transaction.failed", "transfer.success", "transfer.failed", "payout.success", "payout.failed", "refund.success", "refund.failed"]
+  },
+  "checkout_messages": {
+    "source": "tsara-checkout",
+    "version": 1,
+    "types": ["ready", "success", "cancel", "error"],
+    "transaction_fields": ["transactionId", "trx_id"]
+  }
+}

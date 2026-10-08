@@ -7,11 +7,11 @@ function checkoutFrame(): HTMLIFrameElement {
   return frame;
 }
 
-function send(frame: HTMLIFrameElement, type: string, payload?: unknown, origin = "https://checkout.tsara.ng") {
+function send(frame: HTMLIFrameElement, type: string, payload?: unknown, origin = "https://checkout.tsara.ng", version = 1) {
   window.dispatchEvent(new MessageEvent("message", {
     origin,
     source: frame.contentWindow,
-    data: { source: "tsara-checkout", version: 1, type, payload },
+    data: { source: "tsara-checkout", version, type, payload },
   }));
 }
 
@@ -78,6 +78,17 @@ describe("checkout modal", () => {
     expect(document.querySelector(".tsara-checkout-backdrop")).toBeNull();
     expect(document.activeElement).toBe(trigger);
     expect(document.body.style.overflow).toBe("");
+  });
+
+  it("ignores messages from unsupported checkout contract versions", () => {
+    const onSuccess = vi.fn();
+    open({ publicKey: "pk_test_ok", transactionId: "order_1", onSuccess });
+    const frame = checkoutFrame();
+
+    send(frame, "success", { transactionId: "order_1", status: "success" }, "https://checkout.tsara.ng", 2);
+
+    expect(onSuccess).not.toHaveBeenCalled();
+    expect(document.querySelector("iframe")).not.toBeNull();
   });
 
   it("reports checkout errors and closes the modal", () => {

@@ -24,9 +24,11 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs,iife --global-name TsaraCheckout --dts --clean",
+    "contract:check": "node scripts/check-contract.mjs",
+    "check": "npm run contract:check && npm test && npm run typecheck && npm run build",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm test && npm run typecheck && npm run build"
+    "prepublishOnly": "npm run check"
   },
   "devDependencies": {
     "jsdom": "^25.0.0",

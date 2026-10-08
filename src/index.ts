@@ -218,6 +218,7 @@ export function open(options: CheckoutOptions): CheckoutController {
     if (event.origin !== url.origin || event.source !== frame.contentWindow) return;
     const message = event.data as Partial<CheckoutMessage>;
     if (!message || message.source !== "tsara-checkout") return;
+    if (message.version !== undefined && message.version !== 1) return;
     if (!(["ready", "success", "cancel", "error"] as string[]).includes(String(message.type))) return;
 
     const incomingTransactionId = messageTransactionId(message.payload);
